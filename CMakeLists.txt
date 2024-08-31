@@ -1,11 +1,21 @@
 cmake_minimum_required(VERSION 3.12)
 
-# set(PATCH_VERSION "1" CACHE INTERNAL "Patch version")
-set(PROJECT_VESRION 0.0.${PATCH_VERSION})
+find_package(Git)
+if (Git_FOUND)
+    execute_process(COMMAND
+    ${GIT_EXECUTABLE} describe --tags --abbrev=0
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    OUTPUT_VARIABLE PATCH_VERSION
+    OUTPUT_STRIP_TRAILING_WHITESPACE)
+endif()
 
-message("patch version ${PATCH_VERSION}")
+if (NOT PATCH_VERSION)
+    set(PATCH_VERSION "0" CACHE INTERNAL "Patch version")
+endif()
 
-project(helloworld VERSION ${PROJECT_VESRION})
+set(PROJECT_VERSION 0.0.${PATCH_VERSION})
+
+project(helloworld VERSION ${PROJECT_VERSION})
 
 option(WITH_BOOST_TEST "Whether to build Boost test" ON)
 
