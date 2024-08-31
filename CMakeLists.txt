@@ -15,8 +15,6 @@ endif()
 
 set(PROJECT_VERSION 0.0.${PATCH_VERSION})
 
-message("patch version ${PROJECT_VERSION}")
-
 project(helloworld VERSION ${PROJECT_VERSION})
 
 option(WITH_BOOST_TEST "Whether to build Boost test" ON)
