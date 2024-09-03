@@ -3,10 +3,6 @@ name: 'C++ CI'
 on:
   push:
     branches:
-      - 001-homework
-      - 002-homework
-      - 003-homework
-      - 004-homework
       - feature/github_actions
 
 jobs:
