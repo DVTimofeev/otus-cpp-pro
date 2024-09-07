@@ -94,5 +94,5 @@ include(CPack)
 
 if(WITH_BOOST_TEST)
     enable_testing()
-    add_test(test_version test_version)
+    add_test(ip_filter_test ip_filter_test)
 endif()
