@@ -39,19 +39,19 @@ target_link_libraries(ip_filter PRIVATE
 
 if(WITH_BOOST_TEST)
     find_package(Boost COMPONENTS unit_test_framework REQUIRED)
-    add_executable(tests ip_filter_test.cpp)
+    add_executable(ip_filter_test ip_filter_test.cpp)
 
-    set_target_properties(tests PROPERTIES
+    set_target_properties(ip_filter_test PROPERTIES
         CXX_STANDARD 17
         CXX_STANDARD_REQUIRED ON
     )
 
-    set_target_properties(tests PROPERTIES
+    set_target_properties(ip_filter_test PROPERTIES
         COMPILE_DEFINITIONS BOOST_TEST_DYN_LINK
         INCLUDE_DIRECTORIES ${Boost_INCLUDE_DIR}
     )
 
-    target_link_libraries(tests
+    target_link_libraries(ip_filter_test
         ${Boost_LIBRARIES}
         002-homework
     )
@@ -65,7 +65,7 @@ if (MSVC)
         /W4
     )
     if(WITH_BOOST_TEST)
-        target_compile_options(tests PRIVATE
+        target_compile_options(ip_filter_test PRIVATE
             /W4
         )
     endif()
@@ -77,7 +77,7 @@ else ()
         -Wall -Wextra -pedantic -Werror
     )
     if(WITH_BOOST_TEST)
-        target_compile_options(tests PRIVATE
+        target_compile_options(ip_filter_test PRIVATE
             -Wall -Wextra -pedantic -Werror
         )
     endif()
