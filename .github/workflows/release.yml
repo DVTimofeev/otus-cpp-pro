@@ -3,10 +3,7 @@ name: 'C++ CI'
 on:
   push:
     branches:
-      - 001-homework
       - 002-homework
-      - 003-homework
-      - 004-homework
       - feature/github_actions
 
 jobs:
@@ -41,3 +38,11 @@ jobs:
           asset_path: ./helloworld-0.0.${{ github.run_number }}-Linux.deb
           asset_name: helloworld-0.0.${{ github.run_number }}-Linux.deb
           asset_content_type: application/vnd.debian.binary-package
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+      - run: test
+        
