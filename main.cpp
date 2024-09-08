@@ -34,12 +34,9 @@ int main()
 		std::sort(ip_pool.begin(), ip_pool.end(), comp); 
 
 		print_ips(ip_pool);
-        // std::cout << "filter first byte" << std::endl;
-        // print_ips(filter_1st_byte(ip_pool, 1));
-        // std::cout << "filter first two bytes" << std::endl;
-        // print_ips(filter_1st_2nd_byte(ip_pool, 46, 70));
-        // std::cout << "filter aby byte" << std::endl;
-        // print_ips(filter_any_byte(ip_pool, 46));
+        print_ips(filter_1st_byte(ip_pool, 1));
+        print_ips(filter_1st_2nd_byte(ip_pool, 46, 70));
+        print_ips(filter_any_byte(ip_pool, 46));
     }
     catch(const std::exception &e)
     {

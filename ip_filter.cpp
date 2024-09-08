@@ -45,7 +45,6 @@ void print_ips(const std::vector<std::vector<int>> & ip_pool)
                 std::cout << ".";
 
             std::cout << ip[i];
-
         }
         std::cout << std::endl;
     }
