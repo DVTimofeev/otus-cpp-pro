@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 3.12)
 
+set(project_name helloworld)
+set(executable_name helloworld_cli)
+
 find_package(Git)
 if (Git_FOUND)
     execute_process(COMMAND
@@ -15,26 +18,27 @@ endif()
 
 set(PROJECT_VERSION 0.0.${PATCH_VERSION})
 
-project(helloworld VERSION ${PROJECT_VERSION})
+project(${project_name} VERSION ${PROJECT_VERSION})
 
 option(WITH_BOOST_TEST "Whether to build Boost test" ON)
 
 configure_file(version.h.in version.h)
 
-add_executable(helloworld_cli main.cpp)
-add_library(helloworld lib.cpp)
+# Add executables and libraries
+add_executable(${executable_name} main.cpp)
+add_library(${project_name} lib.cpp)
 
-set_target_properties(helloworld_cli helloworld PROPERTIES
-    CXX_STANDARD 14
+set_target_properties(${executable_name} ${project_name} PROPERTIES
+    CXX_STANDARD 17
     CXX_STANDARD_REQUIRED ON
 )
 
-target_include_directories(helloworld
+target_include_directories(${project_name}
     PRIVATE "${CMAKE_BINARY_DIR}"
 )
 
-target_link_libraries(helloworld_cli PRIVATE
-    helloworld
+target_link_libraries(${executable_name} PRIVATE
+    ${project_name}
 )
 
 if(WITH_BOOST_TEST)
@@ -53,15 +57,15 @@ if(WITH_BOOST_TEST)
 
     target_link_libraries(test_version
         ${Boost_LIBRARIES}
-        helloworld
+        ${project_name}
     )
 endif()
 
 if (MSVC)
-    target_compile_options(helloworld_cli PRIVATE
+    target_compile_options(${executable_name} PRIVATE
         /W4
     )
-    target_compile_options(helloworld PRIVATE
+    target_compile_options(${project_name} PRIVATE
         /W4
     )
     if(WITH_BOOST_TEST)
@@ -70,10 +74,10 @@ if (MSVC)
         )
     endif()
 else ()
-    target_compile_options(helloworld_cli PRIVATE
+    target_compile_options(${executable_name} PRIVATE
         -Wall -Wextra -pedantic -Werror
     )
-    target_compile_options(helloworld PRIVATE
+    target_compile_options(${project_name} PRIVATE
         -Wall -Wextra -pedantic -Werror
     )
     if(WITH_BOOST_TEST)
@@ -83,7 +87,7 @@ else ()
     endif()
 endif()
 
-install(TARGETS helloworld_cli RUNTIME DESTINATION bin)
+install(TARGETS ${executable_name} RUNTIME DESTINATION bin)
 
 set(CPACK_GENERATOR DEB)
 set(CPACK_PACKAGE_VERSION_MAJOR "${PROJECT_VERSION_MAJOR}")
