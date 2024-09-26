@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.12)
 
-set(project_name helloworld)
-set(executable_name helloworld_cli)
+set(project_name 003-allocators)
+set(executable_name custom_alloc)
 
 find_package(Git)
 if (Git_FOUND)
@@ -26,20 +26,20 @@ configure_file(version.h.in version.h)
 
 # Add executables and libraries
 add_executable(${executable_name} main.cpp)
-add_library(${project_name} lib.cpp)
+# add_library(${project_name} custom_allocator.cpp)
 
-set_target_properties(${executable_name} ${project_name} PROPERTIES
-    CXX_STANDARD 17
-    CXX_STANDARD_REQUIRED ON
-)
+# set_target_properties(${executable_name} ${project_name} PROPERTIES
+#     CXX_STANDARD 17
+#     CXX_STANDARD_REQUIRED ON
+# )
 
-target_include_directories(${project_name}
-    PRIVATE "${CMAKE_BINARY_DIR}"
-)
+# target_include_directories(${project_name}
+#     PRIVATE "${CMAKE_BINARY_DIR}"
+# )
 
-target_link_libraries(${executable_name} PRIVATE
-    ${project_name}
-)
+# target_link_libraries(${executable_name} PRIVATE
+#     ${project_name}
+# )
 
 if(WITH_BOOST_TEST)
     find_package(Boost COMPONENTS unit_test_framework REQUIRED)
@@ -57,7 +57,7 @@ if(WITH_BOOST_TEST)
 
     target_link_libraries(test_version
         ${Boost_LIBRARIES}
-        ${project_name}
+        # ${project_name}
     )
 endif()
 
@@ -65,9 +65,9 @@ if (MSVC)
     target_compile_options(${executable_name} PRIVATE
         /W4
     )
-    target_compile_options(${project_name} PRIVATE
-        /W4
-    )
+    # target_compile_options(${project_name} PRIVATE
+    #     /W4
+    # )
     if(WITH_BOOST_TEST)
         target_compile_options(test_version PRIVATE
             /W4
@@ -77,9 +77,9 @@ else ()
     target_compile_options(${executable_name} PRIVATE
         -Wall -Wextra -pedantic -Werror
     )
-    target_compile_options(${project_name} PRIVATE
-        -Wall -Wextra -pedantic -Werror
-    )
+    # target_compile_options(${project_name} PRIVATE
+    #     -Wall -Wextra -pedantic -Werror
+    # )
     if(WITH_BOOST_TEST)
         target_compile_options(test_version PRIVATE
             -Wall -Wextra -pedantic -Werror
