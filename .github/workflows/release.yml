@@ -17,8 +17,8 @@ jobs:
       - run: sudo apt-get update && sudo apt-get install libboost-test-dev -y
       - run: cmake . -DPATCH_VERSION=${{ github.run_number }} -DWITH_BOOST_TEST=ON
       - run: cmake --build .
-      # add targets to build
-      - run: cmake --build . --target test_alloc
+      - run: cmake --build . --target test
+      - run: cmake --build . --target package
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -37,6 +37,6 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
         # change template_name to name of the project
-          # asset_path: ./003-allocators-0.0.${{ github.run_number }}-Linux.deb
-          # asset_name: 003-allocators-0.0.${{ github.run_number }}-Linux.deb
+          asset_path: ./003-allocators-0.0.${{ github.run_number }}-Linux.deb
+          asset_name: 003-allocators-0.0.${{ github.run_number }}-Linux.deb
           asset_content_type: application/vnd.debian.binary-package
