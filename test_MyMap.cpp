@@ -26,17 +26,9 @@ BOOST_AUTO_TEST_CASE(test_change_value) {
 }
 
 BOOST_AUTO_TEST_CASE(test_out_of_range) {
-    try
-    {
-        MyMap<int, int> my_map;
-    }
-    catch(const std::out_of_range& e)
-    {
-        BOOST_CHECK(true);
-    }
-    catch (...){}
+    MyMap<int, int> my_map;
 
-    BOOST_CHECK(false);
+    BOOST_CHECK_THROW (my_map.at(404), std::out_of_range);
 }
 
 BOOST_AUTO_TEST_SUITE_END()

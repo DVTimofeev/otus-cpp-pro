@@ -60,8 +60,7 @@ public:
 
     T at(const Key& key_) const
     {
-        
-        auto temp_root = root;
+        Node* temp_root = root;
         while (true)
         {
             if (!temp_root)
