@@ -26,20 +26,20 @@ configure_file(version.h.in version.h)
 
 # Add executables and libraries
 add_executable(${executable_name} main.cpp)
-# add_library(${project_name} custom_allocator.cpp)
+add_library(${project_name} INTERFACE)
 
 # set_target_properties(${executable_name} ${project_name} PROPERTIES
 #     CXX_STANDARD 17
 #     CXX_STANDARD_REQUIRED ON
 # )
 
-# target_include_directories(${project_name}
-#     PRIVATE "${CMAKE_BINARY_DIR}"
-# )
+target_include_directories(${project_name} 
+    INTERFACE "${CMAKE_SOURCE_DIR}"
+)
 
-# target_link_libraries(${executable_name} PRIVATE
-#     ${project_name}
-# )
+target_link_libraries(${executable_name} PRIVATE
+    ${project_name}
+)
 
 if(WITH_BOOST_TEST)
     find_package(Boost COMPONENTS unit_test_framework REQUIRED)
