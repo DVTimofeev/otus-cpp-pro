@@ -4,6 +4,7 @@ on:
   push:
     branches:
       # add branch name
+      - 003-allocators
       - feature/github_actions
 
 jobs:

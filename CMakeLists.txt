@@ -43,21 +43,27 @@ add_executable(${executable_name} main.cpp)
 
 if(WITH_BOOST_TEST)
     find_package(Boost COMPONENTS unit_test_framework REQUIRED)
-    add_executable(test_version test_version.cpp)
+    # add tests executables
+    add_executable(test_alloc test_alloc.cpp)
+    add_executable(test_MyMap test_MyMap.cpp)
 
-    set_target_properties(test_version PROPERTIES
+    set(test_list test_alloc test_MyMap)
+
+    set_target_properties(${test_list} PROPERTIES
         CXX_STANDARD 14
         CXX_STANDARD_REQUIRED ON
     )
 
-    set_target_properties(test_version PROPERTIES
+    set_target_properties(${test_list} PROPERTIES
         COMPILE_DEFINITIONS BOOST_TEST_DYN_LINK
         INCLUDE_DIRECTORIES ${Boost_INCLUDE_DIR}
     )
 
-    target_link_libraries(test_version
+    target_link_libraries(test_alloc
         ${Boost_LIBRARIES}
-        # ${project_name}
+    )
+    target_link_libraries(test_MyMap
+        ${Boost_LIBRARIES}
     )
 endif()
 
@@ -65,11 +71,13 @@ if (MSVC)
     target_compile_options(${executable_name} PRIVATE
         /W4
     )
-    # target_compile_options(${project_name} PRIVATE
-    #     /W4
-    # )
+
     if(WITH_BOOST_TEST)
-        target_compile_options(test_version PRIVATE
+        target_compile_options(test_alloc PRIVATE
+            /W4
+        )
+
+        target_compile_options(test_MyMap PRIVATE
             /W4
         )
     endif()
@@ -77,11 +85,12 @@ else ()
     target_compile_options(${executable_name} PRIVATE
         -Wall -Wextra -pedantic -Werror
     )
-    # target_compile_options(${project_name} PRIVATE
-    #     -Wall -Wextra -pedantic -Werror
-    # )
     if(WITH_BOOST_TEST)
-        target_compile_options(test_version PRIVATE
+        target_compile_options(test_alloc PRIVATE
+            -Wall -Wextra -pedantic -Werror
+        )
+
+        target_compile_options(test_MyMap PRIVATE
             -Wall -Wextra -pedantic -Werror
         )
     endif()
