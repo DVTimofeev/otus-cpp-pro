@@ -29,7 +29,7 @@ add_executable(${executable_name} main.cpp)
 add_library(${project_name} lib.cpp)
 
 set_target_properties(${executable_name} ${project_name} PROPERTIES
-    CXX_STANDARD 17
+    CXX_STANDARD 20
     CXX_STANDARD_REQUIRED ON
 )
 
