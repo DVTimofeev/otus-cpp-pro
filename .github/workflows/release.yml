@@ -35,8 +35,8 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
         # change template_name to name of the project
-          asset_path: ./template_name-0.0.${{ github.run_number }}-Linux.deb
-          asset_name: template_name-0.0.${{ github.run_number }}-Linux.deb
+          asset_path: ./sfinae-0.0.${{ github.run_number }}-Linux.deb
+          asset_name: sfinae-0.0.${{ github.run_number }}-Linux.deb
           asset_content_type: application/vnd.debian.binary-package
         # Build the HTML documentation
       - name: Doxygen Action
