@@ -1,5 +1,3 @@
-#include "lib.h"
-
 #include <iostream>
 #include <vector>
 #include <list>
